@@ -27,6 +27,10 @@ public class LinkedList<T extends Comparable<T>> {
         return this.last;
     }
 
+    public NodeLL<T> getFirst(){
+        return this.first;
+    }
+
 
     /**
      * Adds an element in the first position of the list

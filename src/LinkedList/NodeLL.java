@@ -1,5 +1,12 @@
 package LinkedList;
 
+/**
+ * Node for a Linked list
+ *
+ * @author moniwaterhouse
+ * @param <T> is used to implement generics
+ */
+
 public class NodeLL<T extends Comparable<T>> {
     private T value;
     private NodeLL<T> next;
@@ -14,24 +21,29 @@ public class NodeLL<T extends Comparable<T>> {
         this.next = next;
     }
 
-    @Override
-    public String toString() {
-        return "Node: " + value;
+    public void setValue(T value) {
+        this.value = value;
     }
 
     public T getValue() {
         return value;
     }
 
-    public void setValue(T value) {
-        this.value = value;
+    public void setNext(NodeLL<T> next) {
+        this.next = next;
     }
+
 
     public NodeLL<T> getNext() {
         return next;
     }
 
-    public void setNext(NodeLL<T> next) {
-        this.next = next;
+    @Override
+    public String toString() {
+        return "Node: " + value;
     }
+
+
+
+
 }
