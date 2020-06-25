@@ -1,9 +1,13 @@
-package LinkedList;
+package Test;
+
+import DoubleLinkedList.DoubleLinkedList;
+import LinkedList.LinkedList;
+import DoubleLinkedList.NodeDLL;
 
 public class MainTest {
 
     public static void main(String[] args) {
-        LinkedList<Integer> lista = new LinkedList<Integer>();
+        /*LinkedList<Integer> lista = new LinkedList<Integer>();
         lista.addFirst(0);
         lista.addFirst(1);
         lista.addFirst(2);
@@ -35,7 +39,17 @@ public class MainTest {
 
         lista.modifyValue(7,1);
 
-        System.out.println(lista);
+        System.out.println(lista);*/
+
+        NodeDLL<Integer> nodeDLL = new NodeDLL<Integer>(8);
+        System.out.println(nodeDLL);
+
+        nodeDLL.setPrevious(new NodeDLL<Integer>(7));
+        System.out.println(nodeDLL.getPrevious());
+
+        nodeDLL.setNext(new NodeDLL<Integer>(9));
+        System.out.println(nodeDLL.getNext());
+        System.out.println();
 
     }
 }
