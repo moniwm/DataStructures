@@ -2,6 +2,13 @@ package SortAlgorithms;
 
 import LinkedList.LinkedList;
 
+/**
+ *  Selection Sort algorithm with a Linked List
+ *
+ * @author moniwaterhouse
+ * @param <T> is used to implement generics
+ */
+
 public class SelectionSort<T extends Comparable <T>> {
 
     private LinkedList<T> list;
