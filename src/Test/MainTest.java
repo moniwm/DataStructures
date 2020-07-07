@@ -1,5 +1,6 @@
 package Test;
 
+import Trees.AVLTree;
 import Trees.BinaryTree;
 
 public class MainTest {
@@ -44,8 +45,21 @@ public class MainTest {
         bst.insert(4);
         bst.insert(5);
         bst.insert(6);
+        bst.insert(7);
 
         bst.getRootValue();
+
+        AVLTree<Integer> avl = new AVLTree<>();
+        avl.insert(3);
+        avl.insert(4);
+        avl.insert(5);
+        avl.insert(6);
+        avl.insert(7);
+        avl.insert(9);
+        avl.insert(11);
+
+        avl.getRootValue();
+
 
     }
 }

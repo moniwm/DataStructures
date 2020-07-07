@@ -160,6 +160,7 @@ public abstract class Tree<T extends Comparable<T>> {
      */
 
     private Node<T> insert(T element, Node<T> node) {
+
         if(node == null){
             return new Node<T>(element);
         }
@@ -171,6 +172,33 @@ public abstract class Tree<T extends Comparable<T>> {
         }
         else if( compareResult > 0){
             node.right = this.insert(element, node.right);
+        }
+
+        // This part will establish the condition to insert an element in a AVL Tree
+
+        if(this.isAVL){
+
+            node.height = 1 + max(getHeight(node.left), getHeight(node.right));
+
+            int balance = getBalance(node);
+
+            if (balance > 1 && element.compareTo(node.left.element) < 0)
+                return rightRotate(node);
+
+            if (balance < -1 && element.compareTo(node.right.element) > 0)
+                return leftRotate(node);
+
+            // Left Right Case
+            if (balance > 1 && element.compareTo(node.left.element) > 0) {
+                node.left = leftRotate(node.left);
+                return rightRotate(node);
+            }
+
+            // Right Left Case
+            if (balance < -1 && element.compareTo(node.right.element) < 0) {
+                node.right = rightRotate(node.right);
+                return leftRotate(node);
+            }
         }
 
         return node;
@@ -223,6 +251,80 @@ public abstract class Tree<T extends Comparable<T>> {
 
     public void getRootValue(){
         System.out.println(this.root.element);
+    }
+
+    // The next methods are related to the balance of a AVL Tree and a Splay Tree
+
+    /**
+     * Gets the height of a specific node
+     * @param node the node which height wants to be known
+     * @return the height of the node
+     */
+    private int getHeight(Node<T> node) {
+        if (node == null)
+            return 0;
+
+        return node.height;
+    }
+
+    /**
+     * This method returns the maximum of two integers
+     *
+      * @param a integer 1
+     * @param b integer 2
+     * @return the integer with a greater value
+     */
+
+    private int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+
+    /**
+     *  A utility function to right rotate subtree rooted with y
+     * @param node the node to be rotated
+     * @return  new root
+     */
+    private Node<T> rightRotate(Node<T> node) {
+        Node<T> x = node.left;
+        Node<T> T2 = x.right;
+
+        x.right = node;
+        node.left = T2;
+
+        node.height = max(getHeight(node.left), getHeight(node.right)) + 1;
+        x.height = max(getHeight(x.left), getHeight(x.right)) + 1;
+
+        return x;
+    }
+
+    /**
+     * A utility function to left rotate subtree rooted with x
+     * @param node the node to be roateted
+     * @return the new root
+     */
+    private Node<T> leftRotate(Node<T> node) {
+        Node<T> y = node.right;
+        Node<T> T2 = y.left;
+
+        y.left = node;
+        node.right = T2;
+
+        node.height = max(getHeight(node.left), getHeight(node.right)) + 1;
+        y.height = max(getHeight(y.left), getHeight(y.right)) + 1;
+
+        return y;
+    }
+
+    /**
+     * Method to get the balance factor of a node and check if it is unbalanced
+     * @param node the node from which the balance factor is gotten
+     * @return the balance factor
+     */
+    private int getBalance(Node<T> node) {
+        if (node == null)
+            return 0;
+
+        return getHeight(node.left) - getHeight(node.right);
     }
 
 
