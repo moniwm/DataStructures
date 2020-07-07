@@ -1,8 +1,6 @@
 package Test;
 
-import DoubleLinkedList.DoubleLinkedList;
-import LinkedList.LinkedList;
-import DoubleLinkedList.NodeDLL;
+import Trees.BinaryTree;
 
 public class MainTest {
 
@@ -41,15 +39,13 @@ public class MainTest {
 
         System.out.println(lista);*/
 
-        NodeDLL<Integer> nodeDLL = new NodeDLL<Integer>(8);
-        System.out.println(nodeDLL);
+        BinaryTree<Integer> bst = new BinaryTree<>();
+        bst.insert(3);
+        bst.insert(4);
+        bst.insert(5);
+        bst.insert(6);
 
-        nodeDLL.setPrevious(new NodeDLL<Integer>(7));
-        System.out.println(nodeDLL.getPrevious());
-
-        nodeDLL.setNext(new NodeDLL<Integer>(9));
-        System.out.println(nodeDLL.getNext());
-        System.out.println();
+        bst.getRootValue();
 
     }
 }

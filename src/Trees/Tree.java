@@ -1,25 +1,41 @@
 package Trees;
 
 /**
- * This class implements a binary search tree
+ * Abstract class used to create the shared methods of the Binary Search Tree, AVL Tree and Splay Tree
+ * this way, duplicated code will be avoided.
  *
- * @author moniwaterhouse
- * @since 06/20/2020
- *
- * @param <T> is used to implement generics
- *
+ * @param <T>
  */
 
-public class BinarySearchTree<T extends Comparable<T>> {
+public abstract class Tree<T extends Comparable<T>> {
 
     private Node<T> root;
 
-    public BinarySearchTree(){
-        this.root = null;
-    }
+    private boolean isBST;
+    private boolean isAVL;
+    private boolean isSplay;
+
 
     public boolean isEmpty(){
         return this.root == null;
+    }
+
+    /**
+     * This method is used to set the type of tree in the child classes constructor
+     * @param type the type of AVLTree
+     */
+    protected void setTypeTree(String type){
+        if(!isSplay & !isAVL & !isBST){
+            if(type.equals("splay")){
+                this.isSplay = true;
+            }
+            else if(type.equals("avl")){
+                this.isAVL = true;
+            }
+            else{
+                this.isBST = true;
+            }
+        }
     }
 
     /**
@@ -204,5 +220,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
         return node;
     }
+
+    public void getRootValue(){
+        System.out.println(this.root.element);
+    }
+
+
 
 }
