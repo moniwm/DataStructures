@@ -1,8 +1,11 @@
 package Test;
 
-import Trees.AVLTree;
-import Trees.BinaryTree;
+import LinkedList.LinkedList;
+import SortAlgorithms.RadixSort;
 import Trees.SplayTree;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class MainTest {
 
@@ -67,17 +70,27 @@ public class MainTest {
 
         avl.printInOrder();*/
 
-        SplayTree<Integer> splayTree = new SplayTree<>();
-        splayTree.insert(4);
-        splayTree.insert(6);
-        splayTree.insert(2);
-        splayTree.insert(9);
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        Random random = new Random();
 
-        splayTree.getRootValue();
+        for(int i = 0; i<20; i++){
 
-        splayTree.contains(6);
+            int num = random.nextInt(500);
+            list.addLast(num);
+        }
 
-        splayTree.getRootValue();
+        for (int i = 0; i <list.getSize(); i++){
+            System.out.println(list.getValue(i));
+
+        }
+
+        RadixSort radixSort = new RadixSort(list);
+        list = radixSort.sort();
+
+        for (int i = 0; i <list.getSize(); i++){
+            System.out.println(list.getValue(i));
+
+        }
 
     }
 }

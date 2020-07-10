@@ -1,6 +1,9 @@
 package DoubleLinkedList;
 
-import LinkedList.LinkedList;
+/**
+ * @author moniwaterhouse
+ * @param <T> used to implement generics
+ */
 
 public class DoubleLinkedList<T extends Comparable<T>> {
     private NodeDLL<T> first = null;
