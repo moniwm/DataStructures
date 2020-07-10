@@ -55,10 +55,16 @@ public class MainTest {
         avl.insert(5);
         avl.insert(6);
         avl.insert(7);
-        avl.insert(9);
-        avl.insert(11);
+
 
         avl.getRootValue();
+        avl.printInOrder();
+
+        avl.remove(4);
+
+        avl.getRootValue();
+
+        avl.printInOrder();
 
 
     }

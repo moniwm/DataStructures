@@ -162,7 +162,8 @@ public abstract class Tree<T extends Comparable<T>> {
     private Node<T> insert(T element, Node<T> node) {
 
         if(node == null){
-            return new Node<T>(element);
+            int balance = 1;
+            return new Node<>(element);
         }
 
         int compareResult = element.compareTo(node.element);
@@ -246,6 +247,33 @@ public abstract class Tree<T extends Comparable<T>> {
             node = node.left!=null ? node.left : node.right;
         }
 
+        // After doing the deletion, checks if the tree is AVL or Splay to balance it
+
+        if(isAVL){
+
+            this.root.height = max(getHeight(this.root.left), getHeight(this.root.right)) + 1;
+
+            int balance = getBalance(this.root);
+
+
+            if (balance > 1 && getBalance(this.root.left) >= 0)
+                return rightRotate(this.root);
+
+            if (balance > 1 && getBalance(this.root.left) < 0) {
+                this.root.left = leftRotate(this.root.left);
+                return rightRotate(this.root);
+            }
+
+            if (balance < -1 && getBalance(this.root.right) <= 0)
+                return leftRotate(this.root);
+
+            if (balance < -1 && getBalance(this.root.right) > 0) {
+                this.root.right = rightRotate(this.root.right);
+                return leftRotate(this.root);
+            }
+
+        }
+
         return node;
     }
 
@@ -325,6 +353,28 @@ public abstract class Tree<T extends Comparable<T>> {
             return 0;
 
         return getHeight(node.left) - getHeight(node.right);
+    }
+
+    /**
+     * Prints the elements of the tree in order
+     */
+
+
+    public void printInOrder(){
+        inOrder(this.root);
+        System.out.println(" ");
+    }
+
+    private void inOrder(Node node)
+    {
+        if (node == null)
+            return;
+
+        inOrder(node.left);
+
+        System.out.print(node.element + " ");
+
+        inOrder(node.right);
     }
 
 
