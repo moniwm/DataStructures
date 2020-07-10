@@ -45,6 +45,9 @@ public abstract class Tree<T extends Comparable<T>> {
      */
 
     public boolean contains(T element){
+        if(isSplay){
+            this.root = this.splay(this.root, element);
+        }
         return this.contains(element, this.root);
     }
 
@@ -148,6 +151,9 @@ public abstract class Tree<T extends Comparable<T>> {
 
     public void insert(T element){
         this.root = this.insert(element, this.root);
+        if(isSplay){
+            this.root = this.splay(this.root,element);
+        }
     }
 
     /**
@@ -162,7 +168,6 @@ public abstract class Tree<T extends Comparable<T>> {
     private Node<T> insert(T element, Node<T> node) {
 
         if(node == null){
-            int balance = 1;
             return new Node<>(element);
         }
 
@@ -355,10 +360,84 @@ public abstract class Tree<T extends Comparable<T>> {
         return getHeight(node.left) - getHeight(node.right);
     }
 
+
+    /**
+     * This method splays the tree each each time an element is searched or a new element is added
+     * It is exclusive for Splay Trees
+     *
+     * @param node the node where it is looking for the element requested
+     * @param element the reference element
+     * @return the new root
+     */
+   private Node<T> splay(Node<T> node, T element)
+    {
+
+        if (node == null || node.element.compareTo(element) == 0)
+            return node;
+
+        // Key lies in left subtree
+        if (node.element.compareTo(element) > 0)
+        {
+            // Key is not in tree, we are done
+            if (node.left == null) return node;
+
+            // Zig-Zig (Left Left)
+            if (node.left.element.compareTo(element) > 0)
+            {
+                // First recursively bring the
+                // key as root of left-left
+                node.left.left = splay(node.left.left, element);
+
+                // Do first rotation for root,
+                // second rotation is done after else
+                node = rightRotate(node);
+            }
+            else if (node.left.element.compareTo(element) < 0) // Zig-Zag (Left Right)
+            {
+                // First recursively bring
+                // the key as root of left-right
+                node.left.right = splay(node.left.right, element);
+
+                // Do first rotation for root.left
+                if (node.left.right != null)
+                    node.left = leftRotate(node.left);
+            }
+
+            // Do second rotation for root
+            return (node.left == null) ?
+                    node : rightRotate(node);
+        }
+        else // Key lies in right subtree
+        {
+            // Key is not in tree, we are done
+            if (node.right == null) return node;
+
+            // Zag-Zig (Right Left)
+            if (node.right.element.compareTo(element) > 0)
+            {
+                // Bring the key as root of right-left
+                node.right.left = splay(node.right.left, element);
+
+                // Do first rotation for root.right
+                if (node.right.left != null)
+                    node.right = rightRotate(node.right);
+            }
+            else if (node.right.element.compareTo(element) < 0)// Zag-Zag (Right Right)
+            {
+                // Bring the key as root of
+                // right-right and do first rotation
+                node.right.right = splay(node.right.right, element);
+                node = leftRotate(node);
+            }
+
+            // Do second rotation for root
+            return (node.right == null) ? node : leftRotate(node);
+        }
+    }
+
     /**
      * Prints the elements of the tree in order
      */
-
 
     public void printInOrder(){
         inOrder(this.root);

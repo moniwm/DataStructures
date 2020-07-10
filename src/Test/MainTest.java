@@ -2,6 +2,7 @@ package Test;
 
 import Trees.AVLTree;
 import Trees.BinaryTree;
+import Trees.SplayTree;
 
 public class MainTest {
 
@@ -38,7 +39,7 @@ public class MainTest {
 
         lista.modifyValue(7,1);
 
-        System.out.println(lista);*/
+        System.out.println(lista);
 
         BinaryTree<Integer> bst = new BinaryTree<>();
         bst.insert(3);
@@ -64,8 +65,19 @@ public class MainTest {
 
         avl.getRootValue();
 
-        avl.printInOrder();
+        avl.printInOrder();*/
 
+        SplayTree<Integer> splayTree = new SplayTree<>();
+        splayTree.insert(4);
+        splayTree.insert(6);
+        splayTree.insert(2);
+        splayTree.insert(9);
+
+        splayTree.getRootValue();
+
+        splayTree.contains(6);
+
+        splayTree.getRootValue();
 
     }
 }
